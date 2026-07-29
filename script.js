@@ -1,4 +1,4 @@
-﻿const fhContainer = document.getElementById('floating-hearts');
+const fhContainer = document.getElementById('floating-hearts');
 const symbols = ['💗','💕','💩','🐾','💓','🌸','💝'];
 function spawnHeart() {
   const h = document.createElement('span');
@@ -97,7 +97,7 @@ function getLines(name) {
   ];
 }
 
-async function typeLine(el, text, speed = 28) {
+async function typeLine(el, text, speed = 35) {
   el.innerHTML = '';
   const cursor = document.createElement('span');
   cursor.className = 'cursor';
@@ -110,13 +110,13 @@ async function typeLine(el, text, speed = 28) {
         const tagHtml = text.slice(i, end + 1);
         cursor.insertAdjacentHTML('beforebegin', tagHtml);
         i = end + 1;
-        await sleep(Math.max(30, Math.floor(speed * 0.6)));
+        await sleep(Math.max(40, Math.floor(speed * 0.75)));
         continue;
       }
     }
     const ch = text[i];
     cursor.insertAdjacentText('beforebegin', ch);
-    await sleep(ch === ' ' ? speed * 0.4 : speed + (Math.random() * 14 - 7));
+    await sleep(ch === ' ' ? Math.max(30, speed * 0.5) : speed + (Math.random() * 16 - 8));
     i++;
   }
   cursor.remove();
@@ -177,11 +177,11 @@ async function startLetter() {
 
     div.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-    const speed = item.center ? 40 : item.sign ? 35 : 22;
+    const speed = item.center ? 75 : item.sign ? 65 : 55;
     await typeLine(div, item.text, speed);
 
-    if (item.center) await sleep(600);
-    else await sleep(120);
+    if (item.center) await sleep(900);
+    else await sleep(180);
 
    
     resizeCanvas();
